@@ -1,9 +1,10 @@
+// src/components/ProductCard.jsx
 export default function ProductCard({ product }) {
   return (
-    <div style={{ border: "1px solid #ccc", padding: 10, margin: 5 }}>
-      <h4>{product.name}</h4>
-      <p>₹{product.price}</p>
-      <p>Rating: {product.rating}</p>
+    <div className="border bg-white rounded-xl p-3 shadow-sm">
+      <h3 className="font-medium">{product.name}</h3>
+      <p className="text-sm text-stone-500">₹{product.price}</p>
+      <p className="text-xs text-stone-400">⭐ {product.rating}</p>
     </div>
   );
 }

@@ -1,4 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
-  font-family: sans-serif;
-  background: #fafaf9;
+  @apply bg-stone-50 text-stone-800;
 }

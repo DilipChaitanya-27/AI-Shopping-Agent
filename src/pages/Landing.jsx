@@ -1,16 +1,24 @@
-import { login } from "../lib/auth";
+// src/pages/Landing.jsx
+import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
+  const navigate = useNavigate();
+
   return (
-    <div style={{ padding: 40 }}>
-      <h1>AI Shopping Agent</h1>
+    <div className="text-center px-6 py-20">
+      <h1 className="text-4xl font-semibold mb-4">
+        Your personal <span className="text-amber-600">shopping advisor</span>
+      </h1>
 
-      <button onClick={login}>Login with Google</button>
+      <p className="text-stone-500 mb-8">
+        Not search. Not chatbot. A system that understands you.
+      </p>
 
-      <br /><br />
-
-      <button onClick={() => window.location.href = "/chat"}>
-        Continue as Guest →
+      <button
+        onClick={() => navigate("/chat")}
+        className="bg-stone-900 text-white px-6 py-3 rounded-xl"
+      >
+        Start Shopping →
       </button>
     </div>
   );
