@@ -10,95 +10,102 @@ Instead of showing random products, it **understands user intent**, applies **co
 
 ---
 
-## ✨ Current Features (Implemented)
+## ✨ Features
 
 ### 🧠 Intelligent Query Understanding
 
-* Parses user intent from natural language
-* Supports:
-
-  * Budget constraints (`under ₹500`)
-  * Premium queries (`above ₹1000`)
-* Converts text → structured constraints
+- Parses user intent from natural language
+- Supports budget constraints (`under ₹500`, `above ₹1000`)
+- Category detection and memory across the conversation
+- Converts text → structured constraints
 
 ---
 
-### 🎯 Smart Product Filtering
+### 🎯 Smart Product Filtering & Scoring
 
-* Filters products based on:
-
-  * Maximum budget (under)
-  * Minimum budget (above)
-* Includes **fallback logic**:
-
-  * If no exact match → shows closest alternatives
-* Prevents irrelevant recommendations
+- Filters products based on budget, category, and intent
+- **Scoring engine** assigns match scores (Overall, Value, Intent Match)
+- **Visual score bars** with animated progress indicators
+- Fallback logic: if no exact match → shows closest alternatives
 
 ---
 
 ### 💬 Conversational Chat UI
 
-* Clean chat interface with:
-
-  * User & AI message bubbles
-  * Product cards inside chat
-* Supports:
-
-  * Quick demo prompts
-  * Continuous interaction
+- Clean chat interface with user & AI message bubbles
+- **Product cards** with AI reasoning explanations (expandable)
+- **Quick demo prompts** for instant testing
+- **Follow-up question chips** to guide the conversation
+- Auto-scroll to latest message
 
 ---
 
-### 🧩 Robust Edge Case Handling
+### 🛒 Wishlist & Cart
 
-* No crash on invalid input
-* Handles:
-
-  * Empty queries
-  * No matching products
-  * API failures (safe fallback responses)
-* Always returns meaningful output
+- Save products to a **wishlist** (persisted in localStorage)
+- Add products to **cart** with total calculation
+- Dedicated **Wishlist** and **Cart** pages
+- Navbar displays live wishlist & cart counts
 
 ---
 
-### 🎨 UI / UX (Tailwind CSS)
+### ⚖️ Product Comparison
 
-* Modern minimal design
-* Responsive layout
-* Components:
-
-  * Navbar
-  * Landing page
-  * Chat interface
-  * Product cards
+- Side-by-side comparison of up to 3 products
+- **Head-to-head aspect breakdown** (winner vs loser)
+- **Winner badge** with score visualization
+- Animated comparison panel
 
 ---
 
-### 🔐 Authentication (Firebase)
+### 🧠 ShopSense Advisor Panel
 
-* Google Sign-In integration
-* User state management
-* Ready for personalization features
+- Displays detected **shopping stage** (Browsing → Narrowing → Comparing → Deciding → Ready)
+- Shows **intent summary** and **tradeoffs** to consider
+- Suggests the **next best step** for the user
+
+---
+
+### 🛣️ Purchase Path Indicator
+
+- Visual **purchase journey tracker**
+- Stage progress bar with confidence percentage
+- Helps users understand where they are in the decision process
+
+---
+
+### 🔐 Authentication
+
+- **Google Sign-In** via Firebase Auth
+- **Guest mode** for instant access without login
+- Persistent user state across sessions (localStorage + Firebase sync)
+- Protected routes for chat, wishlist, and cart
 
 ---
 
 ## 🧪 Example Queries
 
-| User Input            | System Behavior                             |
-| --------------------- | ------------------------------------------- |
-| `skincare under 200`  | Shows only budget products or closest match |
-| `skincare above 1000` | Shows premium products                      |
-| `random query`        | Shows safe default suggestions              |
+| User Input | System Behavior |
+|------------|-----------------|
+| `skincare under 200` | Shows budget products with value scores |
+| `skincare above 1000` | Shows premium products with reasoning |
+| `gift for mom skincare` | Detects intent + category + suggests options |
+| `compare these` | Enables side-by-side comparison |
 
 ---
 
 ## ⚙️ Tech Stack
 
-* **Frontend:** React + Vite
-* **Styling:** Tailwind CSS
-* **AI Integration:** Google Gemini API (planned enhancement layer)
-* **Backend/Auth:** Firebase
-* **State Management:** React Hooks
+| Layer | Technology |
+|-------|------------|
+| Frontend | React 18 + Vite |
+| Routing | React Router DOM |
+| Styling | Tailwind CSS |
+| Animations | Framer Motion |
+| AI / LLM | Groq API (Llama / Mixtral) |
+| Auth | Firebase Authentication |
+| Data | Shopify API + Local fallback dataset |
+| State | React Hooks + Context API |
 
 ---
 
@@ -107,72 +114,79 @@ Instead of showing random products, it **understands user intent**, applies **co
 ```text
 User Input
    ↓
-Intent Parsing
-   ↓
-Constraint Extraction (budget, type)
+Intent Parsing (budget, category, intent)
    ↓
 Smart Filtering Engine
    ↓
-Fallback Handling (if needed)
+AI Response Generation (Groq)
    ↓
-Response + Product Suggestions
+Product Scoring & Ranking
+   ↓
+Response + Product Suggestions + Follow-up
 ```
 
 ---
 
-## 🚧 What’s Missing / In Progress
+## 🏗️ Project Structure
+
+```
+shopsense/
+├── src/
+│   ├── components/          # UI components
+│   │   ├── AdvisorPanel.jsx
+│   │   ├── DemoChips.jsx
+│   │   ├── FollowUpChips.jsx
+│   │   ├── Navbar.jsx
+│   │   ├── ProductCard.jsx
+│   │   ├── ProductComparison.jsx
+│   │   ├── PurchasePath.jsx
+│   │   └── ScoreBar.jsx
+│   ├── context/             # Global state
+│   │   ├── AuthContext.jsx
+│   │   └── ShopContext.jsx
+│   ├── data/                # Fallback product dataset
+│   ├── lib/                 # Core logic
+│   │   ├── ai.js            # Groq AI integration
+│   │   ├── auth.js
+│   │   ├── filter.js        # Product filtering
+│   │   ├── intentParser.js  # NLP intent extraction
+│   │   ├── scoring.js       # Product scoring algorithm
+│   │   └── shopify.js       # Shopify store API
+│   ├── pages/               # Route pages
+│   │   ├── Cart.jsx
+│   │   ├── Chat.jsx
+│   │   ├── Landing.jsx
+│   │   └── Wishlist.jsx
+│   ├── App.jsx
+│   ├── firebase.js
+│   └── main.jsx
+├── index.html
+├── package.json
+├── tailwind.config.js
+└── vite.config.js
+```
+
+---
+
+## 🚧 In Progress / Roadmap
 
 ### 🔴 Intelligence Upgrades
+- Constraint merging ("actually..." updates)
+- Deeper persona-based recommendations
 
-* Multi-turn memory (context retention)
-* Constraint merging ("actually..." updates)
-* Category detection (skincare, shoes, etc.)
+### 🟠 Decision Engine
+- Real-time price change awareness
+- Stock availability handling
+- "Slightly above budget" smarter logic
 
----
+### 🟡 UI Enhancements
+- Typing stages indicator (Parsing → Filtering → Generating)
+- Toast notifications
+- Constraint sidebar
 
-### 🟠 Decision Engine Enhancements
-
-* Product scoring system
-* Confidence score (% match)
-* “Top Pick” logic
-* Tradeoff explanation (why A over B)
-
----
-
-### 🟡 Advanced AI Layer
-
-* Structured JSON responses from Gemini
-* Hallucination control
-* Better reasoning prompts
-* Follow-up question generation
-
----
-
-### 🔵 UI Enhancements
-
-* Compare products modal
-* Tradeoff explanation box
-* Intent tags display
-* Typing stages (Parsing → Filtering → Generating)
-* Toast notifications
-* Constraint sidebar
-
----
-
-### 🟣 User Features
-
-* Wishlist system
-* Saved sessions
-* User-specific recommendations
-
----
-
-### 🟢 Dynamic Adaptation
-
-* Price change awareness
-* Stock availability handling
-* “Slightly above budget” smarter logic
-* Real-time ranking adjustments
+### 🔵 User Features
+- Saved chat sessions
+- User-specific recommendation history
 
 ---
 
@@ -180,16 +194,17 @@ Response + Product Suggestions
 
 Unlike typical e-commerce or chatbot systems:
 
-❌ Shows random products
-❌ Ignores constraints
-❌ No reasoning
+❌ Shows random products  
+❌ Ignores constraints  
+❌ No reasoning  
 
 ### ShopSense:
 
-✅ Understands user intent
-✅ Applies constraints intelligently
-✅ Explains recommendations
-✅ Adapts when constraints fail
+✅ Understands user intent  
+✅ Applies constraints intelligently  
+✅ Explains recommendations  
+✅ Adapts when constraints fail  
+✅ Tracks purchase journey stage  
 
 ---
 
@@ -204,38 +219,44 @@ ShopSense aims to become:
 ## 🧑‍💻 Setup Instructions
 
 ```bash
+# Install dependencies
 npm install
+
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
 ---
 
 ## 🔑 Environment Variables
 
-Create `.env`:
+Create a `.env` file in the project root:
 
 ```env
 VITE_FIREBASE_API_KEY=your_key
 VITE_FIREBASE_AUTH_DOMAIN=your_domain
-VITE_GEMINI_API_KEY=your_key
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
+VITE_GROQ_API_KEY=your_groq_key
+VITE_SHOPIFY_STOREFRONT_TOKEN=your_shopify_token
+VITE_SHOPIFY_STORE_DOMAIN=your_store.myshopify.com
 ```
 
 ---
 
 ## 📌 Status
 
-🚧 Currently in **Phase 1 (Core System + UI + Constraints)**
-🚀 Moving towards **Phase 2 (AI Reasoning + Decision Intelligence)**
-
----
-
-## 🤝 Contribution / Demo Note
-
-This project is actively being enhanced for:
-
-* Hackathon demo readiness
-* Production-level UX
-* Advanced AI reasoning capabilities
+✅ **Phase 1** — Core System + UI + Constraints + Auth  
+✅ **Phase 2** — AI Reasoning + Decision Intelligence + Scoring  
+🚧 **Phase 3** — Advanced Personalization + Session Memory
 
 ---
 
@@ -243,3 +264,4 @@ This project is actively being enhanced for:
 
 > The goal is not to help users *search faster* —
 > but to help them *decide smarter*.
+
