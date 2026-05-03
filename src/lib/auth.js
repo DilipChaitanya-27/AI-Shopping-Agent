@@ -1,14 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const provider = new GoogleAuthProvider();
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../firebase";
 
 export async function login() {
   try {
@@ -20,4 +11,5 @@ export async function login() {
   }
 }
 
-export { auth };
+export { auth, provider };
+

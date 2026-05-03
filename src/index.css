@@ -2,6 +2,169 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-stone-50 text-stone-800;
+/* ============================= */
+/* GLOBAL THEME SYSTEM */
+/* ============================= */
+
+html.light {
+  background: #fff7ed;
 }
+
+html.dark {
+  background: #0a0a0a;
+}
+
+body {
+  background: transparent;
+  color: inherit;
+}
+
+/* Prevent scroll issues */
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+#root {
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ============================= */
+/* DARK MODE CHAT FIXES */
+/* ============================= */
+
+/* REMOVE white bleed */
+.dark [data-page="chat"] {
+  background: transparent !important;
+}
+
+/* Sidebar */
+.dark .sidebar {
+  background: rgba(15, 23, 42, 0.9);
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Chat bubbles */
+.dark .chat-bubble-bot {
+  background: rgba(17, 24, 39, 0.85);
+  color: #e5e7eb;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Input bar */
+.dark .input-bar {
+  background: rgba(15, 23, 42, 0.8);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  color: #e5e7eb;
+}
+
+.dark .input-bar::placeholder {
+  color: #9ca3af;
+}
+
+/* Recent chats */
+.dark .recent-chat-item {
+  color: #94a3b8;
+}
+
+.dark .recent-chat-item:hover {
+  background: rgba(255,255,255,0.05);
+  color: #e5e7eb;
+}
+
+.dark .recent-chat-item.active {
+  background: rgba(255,115,0,0.15);
+  color: #fb923c;
+}
+
+/* Product cards */
+.dark .product-card {
+  background: rgba(17, 24, 39, 0.85);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #e5e7eb;
+}
+
+.dark .product-price {
+  color: #ffffff;
+}
+
+.dark .product-rating {
+  color: #facc15;
+}
+
+/* Tags */
+.dark .product-tag {
+  background: rgba(255,255,255,0.08);
+  color: #cbd5f5;
+}
+
+.dark .product-tag-highlighted {
+  background: rgba(255,115,0,0.15);
+  color: #fb923c;
+}
+
+/* Buttons */
+.dark .primary-btn {
+  background: linear-gradient(135deg, #ff7a18, #ff9a3d);
+  color: white;
+}
+
+.dark .secondary-btn {
+  background: rgba(255,255,255,0.08);
+  color: #e5e7eb;
+}
+
+/* Inputs */
+.dark input {
+  background: #111827;
+  color: #e5e7eb;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.dark input::placeholder {
+  color: #9ca3af;
+}
+
+/* ============================= */
+/* COMPONENT LAYER */
+/* ============================= */
+
+@layer components {
+  .chat-container {
+    @apply bg-white/80 backdrop-blur-md border border-gray-200 rounded-3xl p-8 shadow-2xl mx-auto max-w-4xl w-full;
+  }
+
+  .input-focus {
+    @apply focus:ring-4 ring-orange-200 focus:border-orange-400 transition-all duration-200;
+  }
+}
+
+/* ============================= */
+/* ANIMATIONS */
+/* ============================= */
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes typing {
+  0%, 60%, 100% { transform: scale(1); }
+  20%, 80% { transform: scale(0.8); }
+}
+
+.typing-dots .dot1 { animation: typing 1.4s infinite ease-in-out 0s; }
+.typing-dots .dot2 { animation: typing 1.4s infinite ease-in-out 0.2s; }
+.typing-dots .dot3 { animation: typing 1.4s infinite ease-in-out 0.4s; }
